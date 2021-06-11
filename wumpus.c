@@ -1,6 +1,8 @@
-//±×¸¸º¸Á¶
-//Á¤Áö¿ë °í´Ù¿µ ±èÅÂÁø ÀÌ½ÂÈñ
-//2021³âµµ 1ÇĞ±â ÀÎ°øÁö´É
+//Visual Studio 2019 (16.0)
+//The Catholic University of Korea 
+//ê·¸ë§Œë³´ì¡°
+//ì •ì§€ìš© ê³ ë‹¤ì˜ ê¹€íƒœì§„ ì´ìŠ¹í¬
+//2021ë…„ë„ 1í•™ê¸° ì¸ê³µì§€ëŠ¥
 //WUMPUS WORLD
 #include<stdio.h>
 #include<stdlib.h>
@@ -33,7 +35,7 @@ typedef struct agent_state {
 	int x_pos;
 	int y_pos;
 	Direction MyHeading;
-	actionList LastAction; //º® ¹ÚÀ»¶§ µğÆúÆ® ¿ŞÂÊÀ¸·Î ÇÏ°í³ª¼­ ¾µ¸ğ¾øÀ½.
+	actionList LastAction; 
 
 	int arrow;
 	bool gold;
@@ -52,7 +54,7 @@ void SetSafe(int x, int y, WorldEnv* Grid) { Grid[GridSize * x + y].safe = true;
 WorldEnv GetState(int x, int y, WorldEnv* Grid) { return Grid[GridSize * x + y]; }
 void SetMyPos(int x, int y, agentMode* ag) { ag->x_pos = x; ag->y_pos = y; }
 
-//»ç¿ëÀÚ Á¤ÀÇÇÔ¼ö
+//ì‚¬ìš©ì ì •ì˜í•¨ìˆ˜
 void realWorldSet(WorldEnv* RealWorld);
 actionList ChooseAction(agentMode* agent);
 void UpdateState(agentMode* agentSt);
@@ -66,10 +68,10 @@ void printInfo(agentMode* agent);
 int main() {
 
 	agentMode agentMan;				//agent 
-	memset(agentMan.Grid, false, sizeof(WorldEnv) * 36); //¿¡ÀÌÀüÆ® ±×¸®µå ÃÊ±âÈ­
+	memset(agentMan.Grid, false, sizeof(WorldEnv) * 36); //ì—ì´ì „íŠ¸ ê·¸ë¦¬ë“œ ì´ˆê¸°í™”
 	StateSet(&agentMan);
 
-	WorldEnv RealWorld[6 * 6] = { 0, };   //ÀüÁöÀû ½ÃÁ¡ map »ı¼º realWorld
+	WorldEnv RealWorld[6 * 6] = { 0, };   //ì „ì§€ì  ì‹œì  map ìƒì„± realWorld
 	memset(RealWorld, false, sizeof(WorldEnv) * 36);
 	realWorldSet(RealWorld);
 
@@ -77,9 +79,9 @@ int main() {
 	while (1)
 	{
 		char test[100];
-		///////1.È¯°æÀÎ½Ä
+		///////1.í™˜ê²½ì¸ì‹
 		percept(&agentMan, RealWorld);
-		if (!checkAlive(&agentMan))//¿¡ÀÌÀüÆ® »ıÁ¸¿©ºÎ Ã¼Å©
+		if (!checkAlive(&agentMan))//ì—ì´ì „íŠ¸ ìƒì¡´ì—¬ë¶€ ì²´í¬
 		{
 			StateSet(&agentMan);
 			puts("\n\n=================================================");
@@ -91,10 +93,10 @@ int main() {
 
 		}
 
-		////2.È¯°æ¾÷µ¥ÀÌÆ®
-		UpdateState(&agentMan);   //¿¡ÀÌÀüÆ®°¡ ÀÎ½ÄÇÏ°íÀÖ´Â °ÍÀ» Åä´ë·Î ¿¡ÀÌÀüÆ®°¡ °¡Áö°íÀÖ´Â ¸ÊÀ» ¾÷µ¥ÀÌÆ®ÇØÁÜ.
+		////2.í™˜ê²½ì—…ë°ì´íŠ¸
+		UpdateState(&agentMan);   //ì—ì´ì „íŠ¸ê°€ ì¸ì‹í•˜ê³ ìˆëŠ” ê²ƒì„ í† ëŒ€ë¡œ ì—ì´ì „íŠ¸ê°€ ê°€ì§€ê³ ìˆëŠ” ë§µì„ ì—…ë°ì´íŠ¸í•´ì¤Œ.
 
-		////// ±×¸®µå ¸Ê Ãâ·Â
+		////// ê·¸ë¦¬ë“œ ë§µ ì¶œë ¥
 		puts("\n====RealWorld Map========");
 		showMap(RealWorld, 9, 9);
 		puts("\n=======Agent Map=========");
@@ -103,7 +105,7 @@ int main() {
 			printInfo(&agentMan);
 
 
-		//////////3. ¾×¼Ç
+		//////////3. ì•¡ì…˜
 		agentMan.LastAction = ChooseAction(&agentMan);
 		
 
@@ -123,10 +125,10 @@ void printInfo(agentMode* agent)
 	puts("=============current state================");
 	printf("[Heading : ");
 	switch (agent->MyHeading) {
-	case N: printf("¡ã ]"); break;
-	case S: printf("¡å ]"); break;
-	case E: printf("¢º ]"); break;
-	case W: printf("¢¸ ]"); break;
+	case N: printf("â–² ]"); break;
+	case S: printf("â–¼ ]"); break;
+	case E: printf("â–¶ ]"); break;
+	case W: printf("â—€ ]"); break;
 	}
 	printf("  [ Gold : %d ]  [ Arrow : %d ] [ Current position : %d,%d ]\n", agent->gold, agent->arrow, agent->x_pos, agent->y_pos);
 	puts("==========================================");
@@ -154,9 +156,9 @@ void showMap(WorldEnv* Map, int x_pos, int y_pos)
 			
 			}
 
-			//ÇöÀçÀ§Ä¡Ãâ·Â
+			//í˜„ì¬ìœ„ì¹˜ì¶œë ¥
 			if (x == x_pos && y == y_pos)
-				strcat(buf, "¡Ü");
+				strcat(buf, "â—");
 
 			if (Map[GridSize * x + y].breezes)
 			{
@@ -217,7 +219,7 @@ void realWorldSet(WorldEnv* RealWorld) {
 		RealWorld[6 * i + 5].walls = true;
 	}
 
-	//safe zone¼³Á¤
+	//safe zoneì„¤ì •
 
 	RealWorld[6 * 1 + 1].safe = true;  // 1,1 safe
 	RealWorld[6 * 1 + 2].safe = true;  // 1,2 safe
@@ -225,7 +227,7 @@ void realWorldSet(WorldEnv* RealWorld) {
 
 
 	//
-	printf("°ñµå´Â 3,4\n");
+	printf("ê³¨ë“œëŠ” 3,4\n");
 	RealWorld[GridSize * 3 + 4].golds = true;  // 3,4 -> gold
 
 	srand((unsigned int)time(NULL));
@@ -234,7 +236,7 @@ void realWorldSet(WorldEnv* RealWorld) {
 		for (int j = 1; j < 5; j++)
 		{
 
-			//WUMPUS ·£´ı »ı¼º
+			//WUMPUS ëœë¤ ìƒì„±
 			int percent = rand() % 100;
 			//printf("rand = %d",percent);
 
@@ -242,32 +244,32 @@ void realWorldSet(WorldEnv* RealWorld) {
 			//if (i == 4 && j == 1) {
 				RealWorld[6 * i + j].wumpi = true;
 
-				//¾ç »ç¹æ¿¡ STENCHES ¼³Á¤
+				//ì–‘ ì‚¬ë°©ì— STENCHES ì„¤ì •
 				RealWorld[6 * (i - 1) + j].stenches = true;
 				RealWorld[6 * (i + 1) + j].stenches = true;
 				RealWorld[6 * i + (j + 1)].stenches = true;
 				RealWorld[6 * i + (j - 1)].stenches = true;
 
-				//debug¿ë ÇÁ¸°Æ®
-				printf("wumpus »ı¼º Àå¼Ò : (%d,%d)\n", i, j);
+				//debugìš© í”„ë¦°íŠ¸
+				printf("wumpus ìƒì„± ì¥ì†Œ : (%d,%d)\n", i, j);
 
 			}
 
 
-			//PITS ·£´ı »ı¼º
+			//PITS ëœë¤ ìƒì„±
 
 			percent = rand() % 100;
 			if (percent < 15 && RealWorld[6 * i + j].golds != true && RealWorld[6 * i + j].safe != true) {
 			//if (i == 4 && j == 1) {
 				RealWorld[6 * i + j].pits = true;
 
-				//¾ç »ç¹æ¿¡ breezes ¼³Á¤
+				//ì–‘ ì‚¬ë°©ì— breezes ì„¤ì •
 				RealWorld[6 * (i - 1) + j].breezes = true;
 				RealWorld[6 * (i + 1) + j].breezes = true;
 				RealWorld[6 * i + (j + 1)].breezes = true;
 				RealWorld[6 * i + (j - 1)].breezes = true;
 
-				printf("pits »ı¼º Àå¼Ò : (%d,%d)\n", i, j);
+				printf("pits ìƒì„± ì¥ì†Œ : (%d,%d)\n", i, j);
 			}
 
 		}
@@ -286,9 +288,9 @@ void percept(agentMode* agent, WorldEnv* RealWorld)
 
 
 
-	agent->cur_percept = RealWorld[6 * x + y]; // Á©Áß¿ä 
+	agent->cur_percept = RealWorld[6 * x + y]; // ì ¤ì¤‘ìš” 
 
-	//¸¶Áö¸·À¸·Î È­»ìÀ» ½úÀ»¶§ ¿úÆÛ½ºÀÇ ºñ¸íÀ¸·Î ÀÎÇÑ ¿úÆÛ½ºÀÇ Á×À½À» ÀÎÁöÇØ¾ßÇÔ.
+	//ë§ˆì§€ë§‰ìœ¼ë¡œ í™”ì‚´ì„ ìˆì„ë•Œ ì›œí¼ìŠ¤ì˜ ë¹„ëª…ìœ¼ë¡œ ì¸í•œ ì›œí¼ìŠ¤ì˜ ì£½ìŒì„ ì¸ì§€í•´ì•¼í•¨.
 	if (agent->LastAction == SHOOT)
 	{
 		agent->arrow--;
@@ -337,7 +339,7 @@ void percept(agentMode* agent, WorldEnv* RealWorld)
 
 }
 
-//agent°¡ ¿úÆÛ½º³ª ±¸µ¢ÀÌ¸¦ ¸¸³ª¼­ Á×¾ú´ÂÁö ÆÄ¾ÇÇÏ´Â ÇÔ¼ö
+//agentê°€ ì›œí¼ìŠ¤ë‚˜ êµ¬ë©ì´ë¥¼ ë§Œë‚˜ì„œ ì£½ì—ˆëŠ”ì§€ íŒŒì•…í•˜ëŠ” í•¨ìˆ˜
 bool checkAlive(agentMode* agent)
 {
 	int x, y;
@@ -362,14 +364,14 @@ bool checkAlive(agentMode* agent)
 
 
 
-//¿¡ÀÌÀüÆ® state ÃÊ±â¼³Á¤
+//ì—ì´ì „íŠ¸ state ì´ˆê¸°ì„¤ì •
 void StateSet(agentMode* agentSt)
 {
 	
 	WorldEnv* grid_array = agentSt->Grid;
 
 
-	grid_array[6 * 1 + 1].safe = true; // 1,1Àº safe 
+	grid_array[6 * 1 + 1].safe = true; // 1,1ì€ safe 
 	agentSt->MyHeading = E;
 
 
@@ -392,7 +394,7 @@ void UpdateState(agentMode* agentSt)
 	perception = agentSt->cur_percept;
 
 
-	//º®ÀÌ¶û Ãæµ¹ÇßÀ»¶§
+	//ë²½ì´ë‘ ì¶©ëŒí–ˆì„ë•Œ
 	if (perception.bumps) {
 		switch (agentSt->MyHeading) {
 		case E: agentSt->Grid[6 * x + y].walls = true; break;
@@ -448,7 +450,7 @@ actionList ChooseAction(agentMode* agent)
 		agent->gold = true;
 		return action;
 	}
-	// BREEZES ¶û STENCHES °ãÃÆÀ»¶§
+	// BREEZES ë‘ STENCHES ê²¹ì³¤ì„ë•Œ
 	if (state.breezes && state.stenches)
 	{
 		switch (agent->MyHeading)
@@ -606,7 +608,7 @@ actionList ChooseAction(agentMode* agent)
 	{
 		bumpNum++;
 		//printf("\n bumpNum = %d  =====================================\n", bumpNum);
-		//º®¿¡ ¹ÚÀ¸¸é ¿ŞÂÊÀ¸·Î°¡´Â°É·Î µğÆúÆ® ¼³Á¤.
+		//ë²½ì— ë°•ìœ¼ë©´ ì™¼ìª½ìœ¼ë¡œê°€ëŠ”ê±¸ë¡œ ë””í´íŠ¸ ì„¤ì •.
 		if (agent->LastAction == TURN_LEFT || agent->LastAction == TURN_RIGHT)
 		{
 			action = GOFORWARD;
@@ -618,7 +620,7 @@ actionList ChooseAction(agentMode* agent)
 			}
 
 		}
-		//º®¿¡ °è¼Ó(10¹ø) ¹ÚÀ¸¸é ¿À¸¥ÂÊÀ¸·Î °¡´Â°É·Î. 
+		//ë²½ì— ê³„ì†(10ë²ˆ) ë°•ìœ¼ë©´ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ”ê±¸ë¡œ. 
 		else if (bumpNum > 10 && agent->LastAction != TURN_LEFT) 
 		{
 			action = TURN_RIGHT;
@@ -629,7 +631,7 @@ actionList ChooseAction(agentMode* agent)
 			case S: agent->MyHeading = W; SetMyPos(x, y + 1, agent); break;
 			}
 			
-			//±×·¡µµ °è¼Ó ¹ÚÀ¸¸é bumpNum ÃÊ±âÈ­=
+			//ê·¸ë˜ë„ ê³„ì† ë°•ìœ¼ë©´ bumpNum ì´ˆê¸°í™”=
 			if (bumpNum > 20) bumpNum = 0; 
 		}
 		else {
